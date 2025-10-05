@@ -216,6 +216,7 @@ class TestPDFParsing:
         parser = LightNovelParser(str(PDF_PATH))
         parser.parse()
         
+        assert parser.content is not None, "PDF content is None"
         content_lower = parser.content.lower()
         
         # Check for key phrases from the generated PDF

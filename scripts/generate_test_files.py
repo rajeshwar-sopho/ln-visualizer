@@ -4,7 +4,7 @@ Script to generate sample EPUB and PDF files for testing the LightNovelParser
 from pathlib import Path
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
-import base64
+# import base64
 
 try:
     from ebooklib import epub
@@ -16,7 +16,7 @@ try:
     from reportlab.pdfgen import canvas
     from reportlab.lib.utils import ImageReader
 except ImportError:
-    canvas = None
+    raise ImportError("reportlab not installed. Install with: pip install reportlab")
 
 
 def create_sample_image(text: str, size=(200, 200), color='lightblue') -> BytesIO:
@@ -28,7 +28,7 @@ def create_sample_image(text: str, size=(200, 200), color='lightblue') -> BytesI
     try:
         # Try to use a default font
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
-    except:
+    except Exception:
         # Fallback to default font
         font = ImageFont.load_default()
     
@@ -165,7 +165,7 @@ def generate_epub(output_path: str = 'test_files/sample_novel.epub'):
     chapters.append(extra)
     
     # Define Table of Contents
-    book.toc = tuple(chapters)
+    book.toc = chapters
     
     # Add navigation files
     book.add_item(epub.EpubNcx())
