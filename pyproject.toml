@@ -5,11 +5,16 @@ description = "A LangChain terminal application"
 requires-python = ">=3.10"
 dependencies = [
     "langchain>=0.1.0",
-    "langchain-openai>=0.0.2",
+    "langchain-google-genai>=1.0.0",
     "langchain-community>=0.0.10",
     "typer>=0.12.0",
     "pydantic>=2.5.3",
     "python-dotenv>=1.0.0",
+    "ebooklib>=0.18",
+    "beautifulsoup4>=4.12.0",
+    "PyMuPDF>=1.23.0",
+    "Pillow>=10.0.0",
+    "reportlab>=4.0.0",
 ]
 
 [project.optional-dependencies]
@@ -20,15 +25,24 @@ dev = [
 ]
 
 [project.scripts]
-langchain-app = "main:app"
+langchain-app = "src.main:app"
 
 [build-system]
 requires = ["setuptools>=68.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["test"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --cov=. --cov-report=term-missing"
+addopts = "-v --cov=src --cov-report=term-missing"
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning:importlib._bootstrap",
+    "ignore::DeprecationWarning",
+]

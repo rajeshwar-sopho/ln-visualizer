@@ -51,6 +51,12 @@ coverage.xml
 *.cover
 .hypothesis/
 
+# Test files (optional - uncomment if you want to ignore generated test files)
+test_files/
+
+# Ignore Actual Data Files
+data/
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
